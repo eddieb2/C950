@@ -1,11 +1,13 @@
 class Truck:
     def __init__(self, truck_number):
         self.truck_number = truck_number
-        self.current_location = None # default should be the HUB
+        self.current_location = "4001 South 700 East" # default = hub
+        self.current_time = None
         self.miles_traveled = 0
         self.packages = []
         self.num_of_packages = 0
-        self.max_packages = 16
+        self.max_packages = 16 # might not be needed
+        self.speed = 18 # max speed
 
     ##### PACKAGES #####
 
@@ -17,22 +19,29 @@ class Truck:
     def get_packages(self):
         return self.packages
 
-    # Adds a package to the truck
-    def set_package(self, package_to_add):
+    def get_package(self,id):
+        for package in self.packages:
+            if package.id == str(id):
+                return package
+
+    # Adds packages hash to the truck
+    # Stores an array of hash maps
+    def add_package(self, package_to_add):
         if self.num_of_packages < self.max_packages:
             self.packages.append(package_to_add)
             self.num_of_packages += 1
         else:
             print(f'Truck #{self.truck_number} is fully loaded.')
 
-    # Adds packages to the truck
-    def set_packages(self, packages_to_add):
+    # Adds a list packages to the truck
+    def add_packages(self, packages_to_add, hub):
         for package in packages_to_add:
             if self.num_of_packages < self.max_packages:
-                self.packages.append(package)
+                new_package = hub.get_package(package)
+                self.packages.append(new_package)
                 self.num_of_packages += 1
             else:
-                print(f'Truck #{self.truck_number} is fully loaded.')
+                print(f'Truck #{self.truck_number} is fully loaded. Packages not loaded: {len(packages_to_add)-self.max_packages}')
 
     # Removes a package from the truck
     def remove_package(self):
@@ -40,7 +49,10 @@ class Truck:
 
     ##### LOCATION #####
 
-    # Changes the current location of the truck
+
+    ''' # Changes the current location of the truck 
+    Update the current location/time of the truck and packages. 
+    '''
     def set_location(self, location):
         self.current_location = location
 
@@ -55,3 +67,8 @@ class Truck:
     # Update the current trip's mileage
     def update_miles_traveled(self):
         return
+
+    def print_loaded_package(self):
+        print(f'Truck Number: {self.truck_number}')
+        for package in self.packages:
+            package.print()
