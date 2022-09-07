@@ -1,7 +1,9 @@
-from classes.status_location import  StatusLocation
+# Edward Andrew Blanciak #001518541
 from classes.hub import Hub
+import datetime
+from CLI import user_interface
 
-# Return the address and distance
+# Return the address and distance  - O(n)
 def find_nearest_neighbor(truck, hub):
     nearest_address = None
     distance = None
@@ -24,17 +26,24 @@ def find_nearest_neighbor(truck, hub):
 
     return [nearest_address, distance, package_to_remove]
 
-# Deliver Packages
+# Deliver Packages - O(n^2)
 def deliver_packages(truck, hub):
 
     while len(truck.packages) > 0:
         nearest_info = find_nearest_neighbor(truck, hub)
-        print(nearest_info[0],nearest_info[1])
-        truck.miles_traveled += nearest_info[1]
-        truck.packages.remove(nearest_info[2])
-        truck.current_location = nearest_info[0]
+        nearest_address = nearest_info[0]
+        distance = nearest_info[1]
+        package_to_deliver = nearest_info[2]
+        time_traveled = truck.calculate_time_traveled(distance)
 
-    print(truck.miles_traveled)
+        truck.set_current_time(truck.current_time + datetime.timedelta(hours=time_traveled))
+        truck.miles_traveled += distance # increments total miles traveled
+        truck.add_time_traveled(distance) # increments total time traveled
+        package_to_deliver.set_time_delivered(truck.current_time) # update the time the package was delivered
+        truck.packages.remove(package_to_deliver) # removes the delivered package
+        truck.current_location = nearest_address # changes current location to the location where the package was delivered
+
+
 
 def main():
     # Hub Creation: Creates a hub where the packages will be stored.
@@ -52,24 +61,28 @@ def main():
     address_data = "C:\\Users\eddie\Desktop\C950 project\data\delivery_addresses.csv"
     main_hub.add_addresses(address_data)
 
-    # Load Trucks
+    # Load Trucks & Set Hub Departure Time
     truck_1 = main_hub.truck_1
     truck_2 = main_hub.truck_2
     truck_3 = main_hub.truck_3
 
-    truck_1.add_packages([], main_hub) #
-    truck_2.add_packages([3,18,36,38], main_hub) #
-    truck_3.add_packages([], main_hub) #
+        # Truck 1 holds the packages that have to be delivered together (13,14,15,16,19,20)
+    truck_1.add_packages([1, 13, 14, 15, 16, 19, 20, 29, 30, 31, 34, 37, 40], main_hub)
+    truck_1.set_hub_departure_time(datetime.timedelta(hours=8))
+        # Truck 2 is delayed until 10:20a because of unknown address of package 9
+    truck_2.add_packages([3, 9, 12, 17, 18, 21, 22, 23, 24, 26, 27, 35, 36, 38, 39], main_hub)
+    truck_2.set_hub_departure_time(datetime.timedelta(hours=10, minutes=20))
+        # Truck 3 has to leave at 9:05a because of packages 6,25,28,32.
+    truck_3.add_packages([2, 4, 5, 6, 7, 8, 10, 11, 25, 28, 32, 33], main_hub)
+    truck_3.set_hub_departure_time(datetime.timedelta(hours=9, minutes=5)
+)
 
-    # 3,18,36,38 have to be on truck 2
-    # 13,14,15,16,19,20 have to be together
+    # Deliver Packages
+    deliver_packages(truck_1, main_hub)
+    deliver_packages(truck_2, main_hub)
+    deliver_packages(truck_3, main_hub)
 
-    # print(find_nearest_neighbor(truck_1,main_hub))
-    # deliver_packages(truck_1, main_hub)
-    # deliver_packages(truck_2, main_hub)
-    # deliver_packages(truck_3, main_hub)
-    # print(truck_1.miles_traveled + truck_2.miles_traveled + truck_3.miles_traveled)
-    print(main_hub.storage_size)
+    user_interface.ui(main_hub)
 
 if __name__ == '__main__':
     main()
@@ -77,7 +90,23 @@ if __name__ == '__main__':
 
 
     '''
-    1.9
-    2.0
+NOTES FOR 9/6
+
+finish up loading trucks with proper packages (manually is simple)
+figure out how to track the time to deliver packages - calc mph 
+implement feature to calculate where a package is at a specific time
+implement cli prompt to show package times
+update comments
+finish project document and submit
     '''
 
+''' Package notes
+    # [1, 13, 14, 15, 16, 19, 20, 29, 30, 31, 34, 37, 40] (#15 needs to be delivered first)
+    # [3, 12, 17, 18, 21, 22, 23, 24, 26, 27, 35, 36, 38, 39]
+    # [2, 4, 5, 6, 7, 8, 9, 10, 11, 25, 28, 32, 33] - Leaves at 9:05am (#6)
+
+    # 13,14,15,16,19,20 - have to be together
+    # 3,18,36,38 - have to be on truck 2
+    # 6,25,28,32 cant leave until 9:05
+    # 9 cant be delievered until 1020
+'''
