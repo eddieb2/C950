@@ -1,12 +1,11 @@
+# Citation: Source = https://www.youtube.com/watch?v=9HFbhPscPU0&ab_channel=JoeJames
 import itertools
 class HashTable:
     def __init__(self):
         self.size = 64 # sets default size to a fixed length
         self.map = [None] * self.size # where data is stored
 
-    ''' 
-    Calculates the index for the key
-    '''
+    # Calculates the index for the key - Time Complexity = O(n)  Space Complexity = O(1)
     def _get_hash(self, key):
         hash = 0
 
@@ -15,9 +14,7 @@ class HashTable:
 
         return hash % self.size
 
-    '''
-    Inserts an element into the hash O(1)
-    '''
+    # Inserts an element into the hash table - Time Complexity = O(1)  Space Complexity = O(1)
     def insert(self, key, value):
         key_hash = self._get_hash(key)
         key_value = [key, value]
@@ -38,9 +35,7 @@ class HashTable:
             self.map[key_hash].append(key_value)
             return True
 
-    '''
-    Returns key/value pair
-    '''
+    # Returns key/value pair - Time Complexity = O(1)  Space Complexity = O(1)
     def lookup(self, key):
         key_hash = self._get_hash(key)
 
@@ -51,6 +46,7 @@ class HashTable:
 
         return None
 
+    # Returns an array of all items in the hash table - Time Complexity = O(n^2)  Space Complexity = O(n)
     def lookup_all(self):
         arr = []
         for item in self.map:
@@ -58,15 +54,13 @@ class HashTable:
                 arr.append(item)
 
         new_arr = list(itertools.chain.from_iterable(arr))
-        package_arr = []
+        final_arr = []
 
         for item in new_arr:
-            package_arr.append(item[1])
-        return package_arr
+            final_arr.append(item[1])
+        return final_arr
 
-    '''
-    Deletes a key/value pair O(1)
-    '''
+    # Deletes a key/value pair - Time Complexity = O(1)  Space Complexity = O(1)
     def delete(self, key):
         key_hash = self._get_hash(key)
 
@@ -80,10 +74,7 @@ class HashTable:
 
         return False
 
-
-    '''
-    Returns the keys of the hashmap
-    '''
+    # Returns all keys of the hash table - Time Complexity = O(n)  Space Complexity = O(n)
     def keys(self):
         arr = []
         for i in range(0, len(self.map)):
@@ -91,7 +82,7 @@ class HashTable:
                 arr.append(self.map[i][0])
         return arr
 
-
+    # Prints all items in the hash table - Time Complexity = O(n^2)  Space Complexity = O(n)
     def print(self):
         arr = []
         for item in self.map:
@@ -102,6 +93,3 @@ class HashTable:
 
         for item in new_arr:
             item[1].print()
-
-
-
