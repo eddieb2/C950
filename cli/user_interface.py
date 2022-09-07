@@ -11,21 +11,37 @@ def ui(hub):
             print("          WGUPS Package Delivery System          ")
             print("-------------------------------------------------\n")
 
-            user_input = input("Enter P to view package statues\n"
-                               "Enter M to view total mileage\n"
-                               "Enter X to exit: ")
+            print("'P': View package statues\n"
+                  "'M': View total mileage\n"
+                  "'X': Exit program\n")
+
+            user_input = input("Enter choice: ")
 
             if user_input == 'X' or user_input == 'x':
                 prompt = False
             elif user_input == 'P' or user_input == 'p':
-                package_status_checker(hub)
+                print("\n'A': Check all packages\n'S': Check a specific package by ID ")
+                user_input_2 = input("\nEnter Choice: ")
+
+                valid = True
+
+                while valid:
+                    if user_input_2 == 'A' or user_input_2 == 'a':
+                        package_status_checker(hub, 1)
+                        valid = False
+                    elif user_input_2 == 'S' or user_input_2 == 's':
+                        package_status_checker(hub, 0)
+                        valid = False
+                    elif user_input_2 == 'X' or user_input_2 == 'x':
+                        prompt = False
+                        return False
             elif user_input == 'M' or user_input == 'm':
                 truck_mileage_display(hub)
         except:
-            return
+            print("Error")
 
 # Displays all package statuses at a given time
-def package_status_checker(hub):
+def package_status_checker(hub, flag):
     print("\n----------------------")
     print("Package Status Checker")
     print("----------------------\n")
@@ -37,32 +53,56 @@ def package_status_checker(hub):
     while prompt:
         hour = None
         minute = None
-
+        input_package_id = None
+        packages_array = hub.storage.lookup_all()
+        packages_array.sort(key=operator.attrgetter('id'))  # sorts by class id
 
         while hour == None:
             try:
                 hour = int(input("Enter hour: "))
             except:
                 print("Invalid Hour!")
+
         while minute == None:
             try:
                 minute = int(input("Enter minutes: "))
             except:
                 print("Invalid Minutes!")
 
+
+        if flag == 0:
+            while input_package_id == None:
+                try:
+                    input_package_id = int(input("Enter package id: "))
+
+                    val = hub.storage.lookup(str(input_package_id))
+
+                    if val == None:
+                        input_package_id = None
+                        print("Invalid ID!.")
+                except:
+                    print("Error")
+
         print("\n------------------------------")
         print(f"Package Information at {datetime.timedelta(hours=hour, minutes=minute)}")
         print("------------------------------\n")
 
-        packages_array = hub.storage.lookup_all()
-        packages_array.sort(key=operator.attrgetter('id'))  # sorts by class id
 
-        for package in packages_array:
-            status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
-            if status == 'DELIVERED':
-                print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Address: {package.street}')
-            else:
-                print(f'Package ID: {str(package.id):20s} Status: {status:33s} Address: {package.street}')
+        if flag == 1: # prints all packages and information
+            for package in packages_array:
+                status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
+                if status == 'DELIVERED':
+                    print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Address: {package.street}')
+                else:
+                    print(f'Package ID: {str(package.id):20s} Status: {status:33s} Address: {package.street}')
+        elif flag == 0: # prints one package and it's information
+            for package in packages_array:
+                if package.id == input_package_id:
+                    status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
+                    if status == 'DELIVERED':
+                        print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Address: {package.street}')
+                    else:
+                        print(f'Package ID: {str(package.id):20s} Status: {status:33s} Address: {package.street}')
 
         prompt = False
 

@@ -1,7 +1,8 @@
 import datetime
 
-# Nearest Neighbor Algorithm --- Returns the nearest address, distance, and package to be removed
-# Time Complexity: O(n^2)
+# Nearest Neighbor Algorithm --- Returns the nearest neighbor from the current location, the distance from the current location to the nearest neighbor,
+# and the package to be removed when the nearest neighbor is reached.
+# Time Complexity: O(n)
 # Space Complexity: O(1)
 def find_nearest_neighbor(truck, hub):
     nearest_address = None
