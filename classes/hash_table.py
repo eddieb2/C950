@@ -1,4 +1,3 @@
-# Citation: Source = https://www.youtube.com/watch?v=9HFbhPscPU0&ab_channel=JoeJames
 import itertools
 class HashTable:
     def __init__(self):
