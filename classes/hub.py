@@ -14,6 +14,7 @@ class Hub:
         self.truck_2 = Truck(2)
         self.truck_3 = Truck(3)
 
+        self.garage = [self.truck_1, self.truck_2, self.truck_3]
 
     # Returns a package
     def get_package(self, id):
@@ -87,3 +88,9 @@ class Hub:
     def print_addresses(self):
         for address in self.addresses:
             print(address)
+
+    def calculate_all_trucks_mileage(self):
+        total_mileage = 0
+        for truck in self.garage:
+            total_mileage+=truck.miles_traveled
+        return total_mileage
