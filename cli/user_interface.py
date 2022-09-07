@@ -1,6 +1,7 @@
 import operator
 import datetime
 
+
 # User Interface
 def ui(hub):
     prompt = True
@@ -40,6 +41,7 @@ def ui(hub):
         except:
             print("Error")
 
+
 # Displays all package statuses at a given time
 def package_status_checker(hub, flag):
     print("\n----------------------")
@@ -69,7 +71,6 @@ def package_status_checker(hub, flag):
             except:
                 print("Invalid Minutes!")
 
-
         if flag == 0:
             while input_package_id == None:
                 try:
@@ -80,6 +81,8 @@ def package_status_checker(hub, flag):
                     if val == None:
                         input_package_id = None
                         print("Invalid ID!.")
+
+
                 except:
                     print("Error")
 
@@ -87,15 +90,14 @@ def package_status_checker(hub, flag):
         print(f"Package Information at {datetime.timedelta(hours=hour, minutes=minute)}")
         print("------------------------------\n")
 
-
-        if flag == 1: # prints all packages and information
+        if flag == 1:  # prints all packages and information
             for package in packages_array:
                 status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
                 if status == 'DELIVERED':
                     print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Address: {package.street}')
                 else:
                     print(f'Package ID: {str(package.id):20s} Status: {status:33s} Address: {package.street}')
-        elif flag == 0: # prints one package and it's information
+        elif flag == 0:  # prints one package and it's information
             for package in packages_array:
                 if package.id == input_package_id:
                     status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
@@ -106,6 +108,7 @@ def package_status_checker(hub, flag):
 
         prompt = False
 
+
 # Displays total truck mileage
 def truck_mileage_display(hub):
     print("\n------------------------")
@@ -115,4 +118,4 @@ def truck_mileage_display(hub):
     print(f'Truck #1: {hub.truck_1.miles_traveled} mi.')
     print(f'Truck #2: {hub.truck_2.miles_traveled} mi.')
     print(f'Truck #3: {hub.truck_3.miles_traveled} mi.')
-    print(f'Total Mileage: {round(hub.calculate_all_trucks_mileage(),2)} mi.')
+    print(f'Total Mileage: {round(hub.calculate_all_trucks_mileage(), 2)} mi.')
