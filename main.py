@@ -10,8 +10,8 @@
 
 ####################################################
 
-from classes.hub import Hub
 import datetime
+from classes.hub import Hub
 from cli import user_interface
 from delivery_algorithm import  package_delivery
 
@@ -23,11 +23,11 @@ def main():
     package_data = "C:\\Users\eddie\Desktop\C950 project\data\package_data.csv"
     main_hub.add_packages(package_data)
 
-    # Distances: Stores all distances between addresses.
+    # Distances: Stores all distances between addresses from file.
     distance_data = "C:\\Users\eddie\Desktop\C950 project\data\delivery_address_distances.csv"
     main_hub.add_distances(distance_data)
 
-    # Addresses: Stores all address information.
+    # Addresses: Stores all address information from file.
     address_data = "C:\\Users\eddie\Desktop\C950 project\data\delivery_addresses.csv"
     main_hub.add_addresses(address_data)
 
@@ -46,12 +46,12 @@ def main():
     truck_3.add_packages([2, 4, 5, 6, 7, 8, 10, 11, 25, 28, 32, 33], main_hub)
     truck_3.set_hub_departure_time(datetime.timedelta(hours=9, minutes=5))
 
-    # Delivers Packages (Main Algorithm)
+    # Delivers Packages (Main Algorithm) - Finds nearest neighbor and delivers all packages for a specified truck
     package_delivery.deliver_packages(truck_1, main_hub)
     package_delivery.deliver_packages(truck_2, main_hub)
     package_delivery.deliver_packages(truck_3, main_hub)
 
-    # Displays User Interface
+    # Displays User Interface - Prompts users for a choice - Display total mileage or all package status at a specified time.
     user_interface.ui(main_hub)
 
 if __name__ == '__main__':
