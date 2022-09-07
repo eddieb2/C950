@@ -6,20 +6,23 @@ def ui(hub):
     prompt = True
 
     while prompt:
-        print("\n-------------------------------------------------")
-        print("          WGUPS Package Delivery System          ")
-        print("-------------------------------------------------\n")
+        try:
+            print("\n-------------------------------------------------")
+            print("          WGUPS Package Delivery System          ")
+            print("-------------------------------------------------\n")
 
-        user_input = input("Enter P to view package statues\n"
-              "Enter M to view total mileage\n"
-              "Enter X to exit: ")
+            user_input = input("Enter P to view package statues\n"
+                               "Enter M to view total mileage\n"
+                               "Enter X to exit: ")
 
-        if user_input == 'X' or user_input == 'x':
-            prompt = False
-        elif user_input == 'P' or user_input == 'p':
-            package_status_checker(hub)
-        elif user_input == 'M' or user_input == 'm':
-            truck_mileage_display(hub)
+            if user_input == 'X' or user_input == 'x':
+                prompt = False
+            elif user_input == 'P' or user_input == 'p':
+                package_status_checker(hub)
+            elif user_input == 'M' or user_input == 'm':
+                truck_mileage_display(hub)
+        except:
+            return
 
 # Displays all package statuses at a given time
 def package_status_checker(hub):
