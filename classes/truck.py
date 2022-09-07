@@ -1,13 +1,26 @@
+import math
 class Truck:
     def __init__(self, truck_number):
         self.truck_number = truck_number
         self.current_location = "4001 South 700 East" # default = hub
         self.current_time = None
+        self.hub_departure_time = None
         self.miles_traveled = 0
+        self.time_traveled = 0
         self.packages = []
         self.num_of_packages = 0
-        self.max_packages = 16 # might not be needed
-        self.speed = 18 # max speed
+        self.max_packages = 16
+        self.speed = 18
+
+    def set_hub_departure_time(self, time):
+        self.hub_departure_time = time
+        self.current_time = time
+        for package in self.packages:
+            package.set_hub_departure_time(time)
+
+    def set_current_time(self, time):
+        self.current_time = time
+
 
     ##### PACKAGES #####
 
@@ -51,10 +64,12 @@ class Truck:
 
 
     ''' # Changes the current location of the truck 
-    Update the current location/time of the truck and packages. 
+    Update the current location of the truck and packages. 
     '''
     def set_location(self, location):
         self.current_location = location
+        for package in self.packages:
+            package.current_location = location
 
     # Display the current location of the truck
     def get_location(self):
@@ -62,7 +77,22 @@ class Truck:
 
     # Display the current trip's mileage
     def get_miles_traveled(self):
-        return
+        print(f'Miles Traveled: {self.miles_traveled}')
+
+    # Returns time traveled per trip: Time = distance/speed
+    def calculate_time_traveled(self, distance):
+        time = distance / self.speed
+        return time
+
+    def add_time_traveled(self, distance):
+        time = self.calculate_time_traveled(distance)
+        self.time_traveled+=time
+        return self.time_traveled
+
+    def get_time_traveled(self):
+        minutes = (self.time_traveled % 1) * 60
+        print(self.time_traveled)
+        print(f'Time Traveled: {math.trunc(self.time_traveled)} hour(s) and {round(minutes)} minute(s).')
 
     # Update the current trip's mileage
     def update_miles_traveled(self):
