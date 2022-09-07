@@ -51,6 +51,19 @@ class HashTable:
 
         return None
 
+    def lookup_all(self):
+        arr = []
+        for item in self.map:
+            if item is not None:
+                arr.append(item)
+
+        new_arr = list(itertools.chain.from_iterable(arr))
+        package_arr = []
+
+        for item in new_arr:
+            package_arr.append(item[1])
+        return package_arr
+
     '''
     Deletes a key/value pair O(1)
     '''
