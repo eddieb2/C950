@@ -1,6 +1,7 @@
 import operator
 import datetime
 
+
 # User Interface
 def ui(hub):
     prompt = True
@@ -20,7 +21,6 @@ def ui(hub):
             if user_input == 'X' or user_input == 'x':
                 prompt = False
             elif user_input == 'P' or user_input == 'p':
-
 
                 valid = True
 
