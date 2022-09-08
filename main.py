@@ -12,9 +12,12 @@
 
 import datetime
 from classes.hub import Hub
-from cli import user_interface
+from ui import user_interface
 from delivery_algorithm import  package_delivery
 
+# main()
+# Time Complexity - O(n^2)
+# Space Complexity - O(n)
 def main():
     # Hub Creation: Creates a hub where the packages will be stored.
     main_hub = Hub()
@@ -52,7 +55,7 @@ def main():
     package_delivery.deliver_packages(truck_3, main_hub)
 
     # Displays User Interface - Prompts users for a choice - Display total mileage or all package status at a specified time.
-    user_interface.ui(main_hub)
+    user_interface.ui(main_hub) # Time Complexity - Worst: O(∞), Best: O(1)
 
 if __name__ == '__main__':
     main()
