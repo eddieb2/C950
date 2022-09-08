@@ -34,7 +34,7 @@ class HashTable:
             self.map[key_hash].append(key_value)
             return True
 
-    # Returns key/value pair - Time Complexity = O(1)  Space Complexity = O(1)
+    # Returns value pair at specified key - Time Complexity = O(1)  Space Complexity = O(1)
     def lookup(self, key):
         key_hash = self._get_hash(key)
 
