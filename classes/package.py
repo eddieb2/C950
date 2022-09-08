@@ -3,7 +3,7 @@ class Package:
     def __init__(self, package_id, street, city, state, zip, deadline,
                  weight, special_notes):
         self.id = int(package_id)
-        self.street = street
+        self.street = street # "address"
         self.city = city
         self.state = state
         self.zip = zip
@@ -12,6 +12,8 @@ class Package:
         self.special_notes = special_notes
         self.hub_departure_time = None
         self.time_delivered = None
+        self.status = StatusLocation(0)
+
 
     ##################
     # Status Methods #
@@ -20,10 +22,13 @@ class Package:
     # Returns a status for a particular time
     def calculate_status(self, time):
         if time >= self.time_delivered:
+            self.status = StatusLocation(2)
             return StatusLocation(2).name
         elif time >= self.hub_departure_time:
+            self.status = StatusLocation(1)
             return StatusLocation(1).name
         else:
+            self.status = StatusLocation(0)
             return StatusLocation(0).name
 
     ################
