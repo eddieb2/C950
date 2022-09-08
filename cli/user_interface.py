@@ -1,7 +1,6 @@
 import operator
 import datetime
 
-
 # User Interface
 def ui(hub):
     prompt = True
@@ -12,7 +11,7 @@ def ui(hub):
             print("          WGUPS Package Delivery System          ")
             print("-------------------------------------------------\n")
 
-            print("'P': View package statues\n"
+            print("'P': View package statuses\n"
                   "'M': View total mileage\n"
                   "'X': Exit program\n")
 
@@ -21,12 +20,14 @@ def ui(hub):
             if user_input == 'X' or user_input == 'x':
                 prompt = False
             elif user_input == 'P' or user_input == 'p':
-                print("\n'A': Check all packages\n'S': Check a specific package by ID ")
-                user_input_2 = input("\nEnter Choice: ")
+
 
                 valid = True
 
                 while valid:
+                    print("\n'A': Check all packages\n'S': Check a specific package by ID ")
+                    user_input_2 = input("\nEnter Choice: ")
+
                     if user_input_2 == 'A' or user_input_2 == 'a':
                         package_status_checker(hub, 1)
                         valid = False
@@ -36,6 +37,7 @@ def ui(hub):
                     elif user_input_2 == 'X' or user_input_2 == 'x':
                         prompt = False
                         return False
+
             elif user_input == 'M' or user_input == 'm':
                 truck_mileage_display(hub)
         except:
