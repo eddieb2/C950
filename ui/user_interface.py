@@ -41,7 +41,7 @@ def ui(hub):
             elif user_input == 'M' or user_input == 'm':
                 truck_mileage_display(hub)
         except:
-            print("Error")
+            print("Invalid Entry!")
 
 
 # Displays all package statuses at a given time
@@ -96,17 +96,21 @@ def package_status_checker(hub, flag):
             for package in packages_array:
                 status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
                 if status == 'DELIVERED':
-                    print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Address: {package.street}')
+                    print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Deadline: '
+                          f'{package.deadline:20s} Address: {package.street}')
                 else:
-                    print(f'Package ID: {str(package.id):20s} Status: {status:33s} Address: {package.street}')
+                    print(f'Package ID: {str(package.id):20s} Status: {status:33s} Deadline: '
+                          f'{package.deadline:20s} Address: {package.street}')
         elif flag == 0:  # prints one package and it's information
             for package in packages_array:
                 if package.id == input_package_id:
                     status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
                     if status == 'DELIVERED':
-                        print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Address: {package.street}')
+                        print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Deadline: '
+                          f'{package.deadline:20s} Address: {package.street}')
                     else:
-                        print(f'Package ID: {str(package.id):20s} Status: {status:33s} Address: {package.street}')
+                        print(f'Package ID: {str(package.id):20s} Status: {status:33s} Deadline: '
+                          f'{package.deadline:20s} Address: {package.street}')
 
         prompt = False
 
