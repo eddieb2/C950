@@ -31,7 +31,7 @@ class Hub:
     # Reads distance data from file and stores the data in the distance array
     def add_distances(self, file_path):  # Time Complexity - Worst: O(n)
         # Read the distances file
-        with open(file_path) as distance_file:
+        with open(f"{file_path}") as distance_file:
             distance_data = csv.reader(distance_file, delimiter=",", quotechar='"')
             # Add the data to the distances array
             for distance in distance_data:
@@ -50,7 +50,7 @@ class Hub:
     # Reads address data from a file and stores the data in the address array - Time Complexity - Worst: O(n)
     def add_addresses(self, file_path):
         # Read the address data file
-        with open(file_path) as address_file:
+        with open(f"{file_path}") as address_file:
             address_data = csv.reader(address_file, delimiter=",", quotechar='"')
             # Add data to the addresses array
             for address in address_data:
@@ -68,7 +68,7 @@ class Hub:
     # Reads package data from a file, creates a Package, and adds it to storage - Time Complexity - Worst: O(n)
     def add_packages(self, file_path):
         # Read the package data file
-        with open(file_path) as package_file:
+        with open(f"{file_path}") as package_file:
             package_data = csv.reader(package_file, delimiter=",", quotechar='"')
             for package in package_data:
                 # Create a new Package

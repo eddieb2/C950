@@ -23,15 +23,15 @@ def main():
     main_hub = Hub()
 
     # Packages: Creates and stores packages from file.
-    package_data = "C:\\Users\eddie\Desktop\C950 project\data\package_data.csv"
+    package_data = "data/package_data.csv"
     main_hub.add_packages(package_data) # Time Complexity - Worst: O(n)
 
     # Distances: Stores all distances between addresses from file.
-    distance_data = "C:\\Users\eddie\Desktop\C950 project\data\delivery_address_distances.csv"
+    distance_data = "data/delivery_address_distances.csv"
     main_hub.add_distances(distance_data) # Time Complexity - Worst: O(n)
 
     # Addresses: Stores all address information from file.
-    address_data = "C:\\Users\eddie\Desktop\C950 project\data\delivery_addresses.csv"
+    address_data = "data/delivery_addresses.csv"
     main_hub.add_addresses(address_data) # Time Complexity - Worst: O(n)
 
     # Load Trucks & Set Hub Departure Time
