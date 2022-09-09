@@ -18,18 +18,18 @@ class Hub:
     # Distance Methods #
     ####################
 
-    # Returns an 2-dimensional array of distances
+    # Returns an 2-dimensional array of distances - Time Complexity - Worst: O(1)
     def get_distances(self):
         return self.distances
 
-    # Returns the distance between two addresses
+    # Returns the distance between two addresses - Time Complexity - Worst: O(1)
     def get_distance_between(self, full_street_address_1, full_street_address_2):
         location_1 = self._get_address_matrix_number(full_street_address_1)
         location_2 = self._get_address_matrix_number(full_street_address_2)
         return float(self.distances[location_1][location_2])
 
     # Reads distance data from file and stores the data in the distance array
-    def add_distances(self, file_path):
+    def add_distances(self, file_path):  # Time Complexity - Worst: O(n)
         # Read the distances file
         with open(file_path) as distance_file:
             distance_data = csv.reader(distance_file, delimiter=",", quotechar='"')
@@ -41,13 +41,13 @@ class Hub:
     # Address Methods #
     ###################
 
-    # Returns the address number id (0-27) -- used for locating the address in the distance table
+    # Returns the address number id (0-27) -- used for locating the address in the distance table - Time Complexity - Worst: O(n)
     def _get_address_matrix_number(self, full_street_address):
         for address in self.addresses:
             if address[2] == full_street_address:
                 return int(address[0])
 
-    # Reads address data from a file and stores the data in the address array
+    # Reads address data from a file and stores the data in the address array - Time Complexity - Worst: O(n)
     def add_addresses(self, file_path):
         # Read the address data file
         with open(file_path) as address_file:
@@ -61,11 +61,11 @@ class Hub:
     # Package Methods #
     ###################
 
-    # Returns a package from storage
+    # Returns a package from storage - Time Complexity - Worst: O(1)
     def get_package(self, id):
         return self.storage.lookup(str(id))
 
-    # Reads package data from a file, creates a Package, and adds it to storage.
+    # Reads package data from a file, creates a Package, and adds it to storage - Time Complexity - Worst: O(n)
     def add_packages(self, file_path):
         # Read the package data file
         with open(file_path) as package_file:
@@ -91,7 +91,7 @@ class Hub:
     # Total Mileage Methods #
     #########################
 
-    # Returns the total mileage for all trucks
+    # Returns the total mileage for all trucks - Time Complexity - Worst: O(n)
     def calculate_all_trucks_mileage(self):
         total_mileage = 0
         for truck in self.garage:
@@ -102,16 +102,16 @@ class Hub:
     # Print Methods #
     #################
 
-    # Prints all packages in storage
+    # Prints all packages in storage Time Complexity - Worst: O(n)
     def print_packages(self):
         self.storage.print()
 
-    # Prints all distances between addresses
+    # Prints all distances between addresses - Time Complexity - Worst: O(n)
     def print_distances(self):
         for distance in self.distances:
             print(distance)
 
-    # Prints all address information
+    # Prints all address information - Time Complexity - Worst: O(n)
     def print_addresses(self):
         for address in self.addresses:
             print(address)

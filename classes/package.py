@@ -19,7 +19,7 @@ class Package:
     # Status Methods #
     ##################
 
-    # Returns a status for a particular time
+    # Returns a status for a particular time - Time Complexity - Worst: O(1)
     def calculate_status(self, time):
         if time >= self.time_delivered:
             self.status = StatusLocation(2)
@@ -35,11 +35,11 @@ class Package:
     # Time Methods #
     ################
 
-    # Sets the time that the package was delivered
+    # Sets the time that the package was delivered - Time Complexity - Worst: O(1)
     def set_time_delivered(self, time):
         self.time_delivered = time
 
-    # Sets the time that a package departed the hub
+    # Sets the time that a package departed the hub - Time Complexity - Worst: O(1)
     def set_hub_departure_time(self, time):
         self.hub_departure_time = time
 
@@ -47,9 +47,11 @@ class Package:
     # Print Methods #
     #################
 
+    # Prints all package information - Time Complexity - Worst: O(1)
     def print(self):
         print([self.id,self.street,self.state,self.zip,self.deadline,
                self.weight,self.special_notes,self.hub_departure_time,self.time_delivered])
 
-    def print_times(self):
+    # Prints the package's times
+    def print_times(self): # Time Complexity - Worst: O(1)
         print([self.hub_departure_time, self.hub_departure_time])
