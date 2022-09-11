@@ -1,3 +1,12 @@
+'''
+CITATION:
+Author: Joe James
+Date: 2016, January 23
+Title: Python: Creating a HASHMAP using Lists
+Code Version: 1.0
+Availability: https://www.youtube.com/watch?v=9HFbhPscPU0&t=29s&ab_channel=JoeJames
+'''
+
 import itertools
 class HashTable:
     def __init__(self):
