@@ -97,20 +97,20 @@ def package_status_checker(hub, flag):
                 status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
                 if status == 'DELIVERED':
                     print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Deadline: '
-                          f'{package.deadline:20s} Address: {package.street}')
+                          f'{package.deadline:20s} Weight: {package.weight:10s} Address: {package.street}, {package.city}, {package.state} {package.zip}')
                 else:
                     print(f'Package ID: {str(package.id):20s} Status: {status:33s} Deadline: '
-                          f'{package.deadline:20s} Address: {package.street}')
+                          f'{package.deadline:20s} Weight: {package.weight:10s} Address: {package.street}, {package.city}, {package.state} {package.zip}')
         elif flag == 0:  # prints one package and it's information
             for package in packages_array:
                 if package.id == input_package_id:
                     status = package.calculate_status(datetime.timedelta(hours=int(hour), minutes=int(minute)))
                     if status == 'DELIVERED':
                         print(f'Package ID: {str(package.id):20s} Status: {status} at {str(package.time_delivered):20s} Deadline: '
-                          f'{package.deadline:20s} Address: {package.street}')
+                          f'{package.deadline:20s} Weight: {package.weight:10s} Address: {package.street}, {package.city}, {package.state} {package.zip}')
                     else:
                         print(f'Package ID: {str(package.id):20s} Status: {status:33s} Deadline: '
-                          f'{package.deadline:20s} Address: {package.street}')
+                          f'{package.deadline:20s} Weight: {package.weight:10s} Address: {package.street}, {package.city}, {package.state} {package.zip}')
 
         prompt = False
 
