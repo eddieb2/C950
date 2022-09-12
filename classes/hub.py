@@ -8,7 +8,7 @@ class Hub:
         self.storage = HashTable()
         self.storage_size = 0
         self.distances = []
-        self.addresses = []
+        self.addresses = HashTable()
         self.truck_1 = Truck(1)
         self.truck_2 = Truck(2)
         self.truck_3 = Truck(3)
@@ -41,11 +41,10 @@ class Hub:
     # Address Methods #
     ###################
 
-    # Returns the address number id (0-27) -- used for locating the address in the distance table - Time Complexity - Worst: O(n)
+    # Returns the address number id (0-27) -- used for locating the address in the distance table - Time Complexity - Worst: O(1)
     def _get_address_matrix_number(self, full_street_address):
-        for address in self.addresses:
-            if address[2] == full_street_address:
-                return int(address[0])
+        return int(self.addresses.lookup(full_street_address))
+
 
     # Reads address data from a file and stores the data in the address array - Time Complexity - Worst: O(n)
     def add_addresses(self, file_path):
@@ -54,8 +53,8 @@ class Hub:
             address_data = csv.reader(address_file, delimiter=",", quotechar='"')
             # Add data to the addresses array
             for address in address_data:
-                self.addresses.append(address)
-
+                # key = street, value = addressID - used for O(1) lookup in _get_address_matrix_number()
+                self.addresses.insert(address[2], address[0])
 
     ###################
     # Package Methods #
@@ -110,9 +109,3 @@ class Hub:
     def print_distances(self):
         for distance in self.distances:
             print(distance)
-
-    # Prints all address information - Time Complexity - Worst: O(n)
-    def print_addresses(self):
-        for address in self.addresses:
-            print(address)
-
