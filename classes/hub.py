@@ -8,7 +8,7 @@ class Hub:
         self.storage = HashTable()
         self.storage_size = 0
         self.distances = []
-        self.addresses = HashTable()
+        self.addresses = HashTable() # 9/12/22 changed from an array.
         self.truck_1 = Truck(1)
         self.truck_2 = Truck(2)
         self.truck_3 = Truck(3)
@@ -28,8 +28,8 @@ class Hub:
         location_2 = self._get_address_matrix_number(full_street_address_2)
         return float(self.distances[location_1][location_2])
 
-    # Reads distance data from file and stores the data in the distance array
-    def add_distances(self, file_path):  # Time Complexity - Worst: O(n)
+    # Reads distance data from file and stores the data in the distance array - Time Complexity - Worst: O(n)
+    def add_distances(self, file_path):
         # Read the distances file
         with open(f"{file_path}") as distance_file:
             distance_data = csv.reader(distance_file, delimiter=",", quotechar='"')
@@ -42,6 +42,7 @@ class Hub:
     ###################
 
     # Returns the address number id (0-27) -- used for locating the address in the distance table - Time Complexity - Worst: O(1)
+    # 9/12/22 - Changed to retrieve the matrix number from a hash table instead of an array. This reduced the time complexity from O(n) to O(1)
     def _get_address_matrix_number(self, full_street_address):
         return int(self.addresses.lookup(full_street_address))
 
