@@ -22,9 +22,9 @@ class HashTable:
 
         return hash % self.size
 
-    # Inserts an element into the hash table - Time Complexity = O(1)  Space Complexity = O(1)
+    # Inserts an element into the hash table - Time Complexity = O(n)  Space Complexity = O(1)
     def insert(self, key, value):
-        key_hash = self._get_hash(key)
+        key_hash = self._get_hash(key) # Time Complexity = O(n)
         key_value = [key, value]
 
         # Key Doesn't exist? Insert new key/value pair
